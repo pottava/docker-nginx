@@ -1,5 +1,5 @@
 # Nginx v1.9.9
-# docker run --rm -p 80:80 -v $(pwd)/html:/etc/nginx/html pottava/nginx:1.9
+# docker run --rm -p 80:80 -v $(pwd)/html:/etc/nginx/html pottava/nginx
 
 FROM alpine:3.3
 
@@ -41,11 +41,10 @@ RUN apk --no-cache add --virtual build-dependencies build-base curl \
           --add-module=/tmp/src/lua-nginx-module-${LUA_VERSION} \
       && make \
       && make install \
+      && apk del build-dependencies \
       && cd /root \
       && rm -rf /tmp/src /var/www/html \
-      && mv /var/www /etc/nginx/html \
       && ln -sf /dev/stdout /var/log/nginx/access.log \
-      && ln -sf /dev/stderr /var/log/nginx/error.log \
-      && apk del build-dependencies
+      && ln -sf /dev/stderr /var/log/nginx/error.log
 
 CMD ["nginx", "-g", "daemon off;"]

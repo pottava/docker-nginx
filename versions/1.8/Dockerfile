@@ -1,5 +1,5 @@
 # Nginx v1.8.0
-# docker run --rm -p 80:80 -v $(pwd)/html:/usr/share/nginx/html pottava/nginx
+# docker run --rm -p 80:80 -v $(pwd)/html:/usr/share/nginx/html pottava/nginx:1.8
 
 FROM alpine:3.3
 
