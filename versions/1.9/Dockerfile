@@ -1,5 +1,6 @@
 # Nginx v1.9.9
 # docker run --rm -p 80:80 -v $(pwd)/html:/etc/nginx/html pottava/nginx
+# docker run --rm -p 80:80 -v $(pwd)/conf/nginx.conf:/etc/nginx/conf/nginx.conf pottava/nginx
 
 FROM alpine:3.3
 
