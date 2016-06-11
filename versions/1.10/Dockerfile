@@ -1,10 +1,10 @@
-# Nginx v1.9
+# Nginx v1.10
 # docker run --rm -p 80:80 -v $(pwd)/html:/etc/nginx/html pottava/nginx
 # docker run --rm -p 80:80 -v $(pwd)/conf/nginx.conf:/etc/nginx/conf/nginx.conf pottava/nginx
 
 FROM alpine:3.3
 
-ENV NGINX_VERSION=1.9.15 LUA_VERSION=0.10.5 NDK_VERSION=0.3.0
+ENV NGINX_VERSION=1.10.1 LUA_VERSION=0.10.5 NDK_VERSION=0.3.0
 
 RUN apk --no-cache add --virtual build-dependencies build-base curl \
       && apk --no-cache add luajit-dev pcre-dev openssl-dev libatomic_ops-dev \
