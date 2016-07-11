@@ -1,18 +1,16 @@
-# Nginx v1.9
-# docker run --rm -p 80:80 -v $(pwd)/html:/etc/nginx/html pottava/nginx
-# docker run --rm -p 80:80 -v $(pwd)/conf/nginx.conf:/etc/nginx/conf/nginx.conf pottava/nginx
+# Nginx v1.11
+# docker run --rm -p 80:80 -v $(pwd)/html:/etc/nginx/html pottava/nginx:1.11
+# docker run --rm -p 80:80 -v $(pwd)/conf/nginx.conf:/etc/nginx/conf/nginx.conf pottava/nginx:1.11
 
-FROM alpine:3.3
+FROM alpine:3.4
 
-ENV NGINX_VERSION=1.9.15 LUA_VERSION=0.10.5 NDK_VERSION=0.3.0
+ENV NGINX_VERSION=1.11.2
 
 RUN apk --no-cache add --virtual build-dependencies build-base curl \
-      && apk --no-cache add luajit-dev pcre-dev openssl-dev libatomic_ops-dev \
-      && set -ex \
+      && apk --no-cache add pcre-dev openssl-dev libatomic_ops-dev \
+      && set -e \
       && mkdir -p /tmp/src /var/lib/nginx /var/log/nginx \
       && cd /tmp/src \
-      && curl --location --silent https://github.com/simpl/ngx_devel_kit/archive/v${NDK_VERSION}.tar.gz | tar xzf - \
-      && curl --location --silent https://github.com/openresty/lua-nginx-module/archive/v${LUA_VERSION}.tar.gz | tar xzf - \
       && curl --location --silent http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz | tar xzf - \
       && cd /tmp/src/nginx-${NGINX_VERSION} \
       && ./configure \
@@ -39,8 +37,6 @@ RUN apk --no-cache add --virtual build-dependencies build-base curl \
           --with-http_realip_module \
           --with-http_sub_module \
           --with-http_secure_link_module \
-          --add-module=/tmp/src/ngx_devel_kit-${NDK_VERSION} \
-          --add-module=/tmp/src/lua-nginx-module-${LUA_VERSION} \
       && make \
       && make install \
       && apk del --purge build-dependencies \
